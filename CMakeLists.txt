@@ -32,7 +32,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS}")
 
     # Define USE_PRINTF option
-    option(USE_PRINTF "Use printf function" OFF)
+    option(USE_PRINTF "Use printf function" ON)
     if(USE_PRINTF)
         add_definitions("-DUSE_PRINTF")
     endif()    
