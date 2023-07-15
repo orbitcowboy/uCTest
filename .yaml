@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up CMake
+      uses: martinlindhe/cmake-action@v2
+      with:
+        cmakeListsTxtPath: CMakeLists.txt
+        buildDir: build
+      
+    - name: Build and test
+      run: |
+        cmake --build build --target uCTestDemo
+        cd build
+        ./uCTestDemo
