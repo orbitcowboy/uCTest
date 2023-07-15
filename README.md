@@ -1,6 +1,6 @@
 # uCTest
 
-uCTest is a lightweight unit testing framework for C. It provides a set of macros that can be used to build and execute test suites.
+uCTest is a lightweight unit testing framework for C. It provides a set of macros that can be used to implement unit test cases with almost zero overhead.
 
 ## Features
 
@@ -97,7 +97,17 @@ int main(void)
 ### Demo output
 
 ```bash
-
+$ cmake ..  -DUSE_PRINTF=ON && make && ./uCTestDemo 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: uCTest/build
+[100%] Built target uCTestDemo
+TestCase2: Detailed information ... [OK]
+TestCase1       [OK]
+TestCase2: Detailed information ... [NOK]
+TestCase2       [OK]
+Error detected.
+Executed 2 test functions.
 ```
 
 
