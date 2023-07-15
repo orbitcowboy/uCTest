@@ -110,20 +110,3 @@ Error detected.
 Executed 2 test functions.
 ```
 
-
-## Compiler-specific Options
-
-The provided CMakeLists.txt file includes compiler-specific options for GNU/Clang and Microsoft Visual Studio.
-
-For GNU/Clang compilers, you can enable sanitizers and warning flags by setting the appropriate options in the CMakeLists.txt file.
-
-For Microsoft Visual Studio, warning flags are enabled by default.
-
-Feel free to modify the CMakeLists.txt file according to your specific requirements.
-
-Customizing printf Function
-
-The uCTest framework allows you to customize the printf function used for emitting test messages. By default, the UC_PRINTF_FUNCTION macro is defined as (void)printf. However, you can change it to your own printf function by modifying the CMakeLists.txt file and setting the USE_PRINTF option to ON.
-
-Contributing
-Contributions to uCTest are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
