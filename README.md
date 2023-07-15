@@ -97,7 +97,7 @@ int main(void)
 ### Demo output
 
 ```bash
-$ mkdir build && cd build && cmake ..  -DUSE_PRINTF=ON && make && ./uCTestDemo 
+$ mkdir build && cd build && cmake .. -DUSE_PRINTF=ON && make && ./uCTestDemo 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: uCTest/build
