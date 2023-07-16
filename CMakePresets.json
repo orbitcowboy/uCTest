@@ -21,7 +21,8 @@
       {
         "name": "default",
         "configurePreset": "default",
-        "output": { "outputOnFailure": true },
+        "configuration": "Debug",
+        "output": { "outputOnFailure": true, "verbosity": "verbose" },
         "execution": { "stopOnFailure": true }
       }
     ],
