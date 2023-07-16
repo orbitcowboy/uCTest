@@ -9,9 +9,6 @@
           "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
         },
         "cacheVariables": {
-          "ENABLE_SANITIZERS": "ON",
-          "UC_FAIL_FAST": "ON",
-          "USE_PRINTF": "ON",
           "BUILD_DEMO": "ON"
         }
       }
