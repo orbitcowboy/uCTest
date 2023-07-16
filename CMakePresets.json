@@ -17,12 +17,21 @@
       }
     ],
     "buildPresets": [ { "name": "default", "configurePreset": "default" } ],
+    "testPresets": [
+      {
+        "name": "default",
+        "configurePreset": "default",
+        "output": { "outputOnFailure": true },
+        "execution": { "stopOnFailure": true }
+      }
+    ],
     "workflowPresets": [
       {
         "name": "full",
         "steps": [
           { "type": "configure", "name": "default" },
-          { "type": "build", "name": "default" }
+          { "type": "build", "name": "default" },
+          { "type": "test", "name": "default" }
         ]
       }
     ]
