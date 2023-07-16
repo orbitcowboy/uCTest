@@ -1,0 +1,30 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": { "major": 3, "minor": 26 },
+    "configurePresets": [
+      {
+        "name": "default",
+        "generator": "Ninja",
+        "binaryDir": "${sourceDir}/build",
+        "environment": {
+          "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        },
+        "cacheVariables": {
+          "ENABLE_SANITIZERS": "ON",
+          "UC_FAIL_FAST": "ON",
+          "USE_PRINTF": "ON",
+          "BUILD_DEMO": "ON"
+        }
+      }
+    ],
+    "buildPresets": [ { "name": "default", "configurePreset": "default" } ],
+    "workflowPresets": [
+      {
+        "name": "full",
+        "steps": [
+          { "type": "configure", "name": "default" },
+          { "type": "build", "name": "default" }
+        ]
+      }
+    ]
+  }
