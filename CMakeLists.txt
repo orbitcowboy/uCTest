@@ -1,47 +1,37 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.26)
 project(uCTest)
 
-# Set the C++ standard to C++11 (or higher if needed)
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# ====================================================================
+option(ENABLE_SANITIZERS "Enable sanitizers(only works with gcc & clang on Unix)" OFF)
+option(UC_FAIL_FAST "Stop the execution of the test cases after the first error" OFF)
+option(USE_PRINTF "Use printf function for logging" ON)
+option(BUILD_DEMO "Build the demo project" OFF)
 
-# Add include directory
-include_directories(include)
+# ====================================================================
+add_library(${PROJECT_NAME} INTERFACE)
+add_library(orbitcowboy::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+target_include_directories(${PROJECT_NAME} INTERFACE include)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
 
-# Add source files
-set(SOURCES
-    src/uCTestDemo.c
-)
-
-# Create an executable from the source files
-add_executable(uCTestDemo ${SOURCES})
-
-# Compiler-specific options
-if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    # Enable sanitizers
-    option(ENABLE_SANITIZERS "Enable sanitizers" OFF)
-    if(ENABLE_SANITIZERS)
-        set(SANITIZER_FLAGS "-fsanitize=address,undefined")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
+# ====================================================================
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang" AND NOT MINGW)
+    target_compile_options(${PROJECT_NAME} INTERFACE -Wall -Wextra -Wpedantic)
+    if (ENABLE_SANITIZERS)
+        target_compile_options(${PROJECT_NAME} INTERFACE -fsanitize=address,undefined)
+        target_link_options(${PROJECT_NAME} INTERFACE -fsanitize=address,undefined)
     endif()
-
-    # Enable all warning flags
-    set(WARNING_FLAGS "-Wall -Wextra -Wpedantic")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WARNING_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS}")
-
-    # Define USE_PRINTF option
-    option(USE_PRINTF "Use printf function" ON)
-    if(USE_PRINTF)
-        add_definitions("-DUSE_PRINTF")
-    endif()    
+elseif(MSVC)
+    target_compile_options(${PROJECT_NAME} INTERFACE /W4)
 endif()
-
-# Microsoft Visual Studio-specific options
-if(MSVC)
-    # Enable all warning flags
-    set(WARNING_FLAGS "/W4")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${WARNING_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS}")
+if (UC_FAIL_FAST)
+    target_compile_definitions(${PROJECT_NAME} INTERFACE UC_FAIL_FAST)
+endif()
+if (USE_PRINTF)
+    target_compile_definitions(${PROJECT_NAME} INTERFACE USE_PRINTF)
+endif()
+if (BUILD_DEMO)
+    enable_testing()
+    add_executable(${PROJECT_NAME}Demo src/uCTestDemo.c)
+    target_link_libraries(${PROJECT_NAME}Demo PRIVATE ${PROJECT_NAME})
+    add_test(NAME ${PROJECT_NAME}Demo COMMAND ${PROJECT_NAME}Demo)
 endif()

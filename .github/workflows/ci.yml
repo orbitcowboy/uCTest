@@ -1,0 +1,26 @@
+name: CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macos-12]
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install CMake
+      uses: jwlawson/actions-setup-cmake@v1.13
+      with:
+        cmake-version: '3.26.x'
+      
+    - name: Build and test
+      run: cmake --workflow --preset full

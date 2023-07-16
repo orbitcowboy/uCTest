@@ -28,10 +28,15 @@ preprocessor define.*/
 #else
 #define UC_PRINTF_FUNCTION(...)
 #endif
+
 /** \brief In case this macro is set to true, the execution of the test cases is stopped
 directly after the first error is detected. In case it is set to false, the execution
 is proceeded until all test cases are executed. */
-#define UC_FAIL_FAST false
+#if UC_FAIL_FAST
+#define _UC_FAIL_FAST true
+#else
+#define _UC_FAIL_FAST false
+#endif
 
 /** \brief This helper macro is needed to concatenate strings during the
 * preprocessor is running.
@@ -58,7 +63,7 @@ is proceeded until all test cases are executed. */
         {\
             UC_PRINTF_FUNCTION(" [NOK]\r\n");\
             g_errorDetected = true;\
-            if(UC_FAIL_FAST)\
+            if(_UC_FAIL_FAST)\
             {\
                 return !g_errorDetected;\
             }\

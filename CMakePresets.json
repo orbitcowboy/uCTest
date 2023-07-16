@@ -1,0 +1,36 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": { "major": 3, "minor": 26 },
+    "configurePresets": [
+      {
+        "name": "default",
+        "binaryDir": "${sourceDir}/build",
+        "environment": {
+          "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        },
+        "cacheVariables": {
+          "BUILD_DEMO": "ON"
+        }
+      }
+    ],
+    "buildPresets": [ { "name": "default", "configurePreset": "default" } ],
+    "testPresets": [
+      {
+        "name": "default",
+        "configurePreset": "default",
+        "configuration": "Debug",
+        "output": { "outputOnFailure": true, "verbosity": "verbose" },
+        "execution": { "stopOnFailure": true }
+      }
+    ],
+    "workflowPresets": [
+      {
+        "name": "full",
+        "steps": [
+          { "type": "configure", "name": "default" },
+          { "type": "build", "name": "default" },
+          { "type": "test", "name": "default" }
+        ]
+      }
+    ]
+  }
