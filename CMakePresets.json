@@ -4,7 +4,6 @@
     "configurePresets": [
       {
         "name": "default",
-        "generator": "Ninja",
         "binaryDir": "${sourceDir}/build",
         "environment": {
           "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
